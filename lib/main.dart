@@ -1,29 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_navigation_drawer/messages.dart';
+import 'package:flutter_navigation_drawer/settings.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  final appTitle = 'Drawer Demo';
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: appTitle,
-      home: MyHomePage(title: appTitle),
+      title: 'Flutter Tutorials',
+      initialRoute: '/',
+      routes: {
+    // When navigating to the "/" route, build the Main widget.
+    '/': (context) => Main(),
+    '/messages': (context) => Messages(),
+    '/settings': (context) => Settings()
+  },
+      // home: Main(),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  final String title;
+class Main extends StatelessWidget {
 
-  MyHomePage({Key key, this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(title)),
-      body: Center(child: Text('My Page!')),
+      appBar: AppBar(title: Text('Flutter Navigation Drawer')),
+      body: Center(child: Text('Home')),
       drawer: Drawer(
         // Add a ListView to the drawer. This ensures the user can scroll
         // through the options in the drawer if there isn't enough vertical
@@ -33,27 +39,23 @@ class MyHomePage extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
-              child: Text('Drawer Header'),
+              child: Center(child:Text('Header Area')),
               decoration: BoxDecoration(
                 color: Colors.blue,
               ),
             ),
             ListTile(
-              title: Text('Item 1'),
+              title: Text('Messages'),
               onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
                 Navigator.pop(context);
+                Navigator.pushNamed(context, '/messages');
               },
             ),
             ListTile(
-              title: Text('Item 2'),
+              title: Text('Settings'),
               onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
                 Navigator.pop(context);
+                Navigator.pushNamed(context, '/settings');
               },
             ),
           ],
